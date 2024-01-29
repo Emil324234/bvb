@@ -1,0 +1,39 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main { //определение класса
+    public static void main(String[] args) {   //объявление метода main и начало программы
+        Scanner scanner = new Scanner(System.in); //считывание ввода пользователя в консоли
+
+        try {
+            FileWriter fileWriter = new FileWriter("students.txt"); //создание файла/текстового документа с определенным именем
+
+            System.out.print("Введите количество студентов: "); //заставляет пользователя ввести количество студентов
+            int count = scanner.nextInt(); //считывание целого числа через консоль
+            scanner.nextLine(); //очищает буфер после считывания числа
+
+            for (int i = 0; i < count; i++) { //цикл for для того, чтобы пользователь ввел данные каждого студента в том количестве, которое было задано с самого начала
+                System.out.println("Введите данные " + (i + 1) + " студента:");
+
+                System.out.print("Имя: ");
+                String name = scanner.nextLine();
+
+                System.out.print("Возраст: ");
+                int age = Integer.parseInt(scanner.nextLine());
+
+                System.out.print("Средний балл: ");
+                double averageGrade = Double.parseDouble(scanner.nextLine());
+
+
+                fileWriter.write(name + ", " + age + ", " + averageGrade + "\n"); //записываются данные о студентах с помощью метода write()
+            }
+
+            fileWriter.close(); //закрывает файл после того как пользователь ввел все данные о студентах
+            System.out.println("Данные сохранены и записаны в файл 'students.txt'");  //после записи всех данных пользователю в консоли выводит сообщение о том, что все данные сохранены
+        } catch (IOException e) { //если же происходит где то ошибка, а именно при записи данных, то программа выводит сообщение об ошибке и не сохраняет
+            System.out.println("Неверный ввод данных. Ошибка сохранения: " + e.getMessage());
+        }
+    }
+}
+
